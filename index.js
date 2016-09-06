@@ -5,10 +5,11 @@
 /// DO NOT EDIT ABOVE THIS LINE ///
 
 var makeChange = function(price, payment) {
+  var denominations = arguments[2] || [25, 10, 5, 1];
   var changeLeft = Math.round(100*payment - 100*price);
   if (changeLeft < 0) {return [0,0,0,0]};
   var results = [], quantity;
-  [25, 10, 5, 1].forEach(function(val){
+  denominations.forEach(function(val){
     quantity = Math.floor(changeLeft/val);
     changeLeft -= quantity * val;
     results.push(quantity);
@@ -16,7 +17,7 @@ var makeChange = function(price, payment) {
   return results;
   //// alternate implementation, using .map
   // var quantity;
-  // return [25, 10, 5, 1].map(function(val){
+  // return denominations.map(function(val){
   //   quantity = Math.floor(changeLeft/val);
   //   changeLeft -= quantity * val;
   //   return quantity;
