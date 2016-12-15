@@ -15,9 +15,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0"
-  },
-  "devDependencies": {
+    "chai-as-promised": "^6.0.0",
     "mocha": "^3.0.2"
   }
 }
