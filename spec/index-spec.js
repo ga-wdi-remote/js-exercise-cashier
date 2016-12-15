@@ -26,7 +26,7 @@ describe('makeChange()', function(){
       });
     });
   });
-  context('when given a "denominations" array as an optional argument', function(){
+  xcontext('when given a "denominations" array as an optional argument', function(){
     it('returns an equal-sized array to the "denominations" array', function(){
       expect(makeChange(3.31, 5.00, [1]).length).to.equal(1);
       expect(makeChange(3.31, 5.00, [100, 50, 25, 1]).length).to.equal(4);
