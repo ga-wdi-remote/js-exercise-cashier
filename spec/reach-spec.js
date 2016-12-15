@@ -3,26 +3,29 @@
 // See LICENSE for details.
 "use strict";
 
-const assert = require('assert');
+const chai = require('chai');
+chai.use(require('chai-as-promised'));
+const expect = chai.expect;
+
 const makeChange = require('../index.js').makeChange;
 
 describe('makeChange()', function(){
   context('when given a "denominations" array as an optional argument', function(){
     it('returns an equal-sized array to the "denominations" array', function(){
-      assert.deepStrictEqual(1, makeChange(3.31, 5.00, [1]).length);
-      assert.deepStrictEqual(4, makeChange(3.31, 5.00, [100, 50, 25, 1]).length);
+      expect(makeChange(3.31, 5.00, [1]).length).to.equal(1);
+      expect(makeChange(3.31, 5.00, [100, 50, 25, 1]).length).to.equal(4);
     });
     it('returns the returns the quantities of the coins specified by the "denominations" array necessary to make change, without overpaying', function(){
-      assert.deepStrictEqual([169], makeChange(3.31, 5.00, [1]));
-      assert.deepStrictEqual([1, 1, 0, 19], makeChange(3.31, 5.00, [100, 50, 25, 1]));
+      expect(makeChange(3.31, 5.00, [1])).to.deep.equal([169]);
+      expect(makeChange(3.31, 5.00, [100, 50, 25, 1])).to.deep.equal([1, 1, 0, 19]);
     });
     context('where it is not possible to make change with the given denominations', function(){
       it('will round down, and give the maximum possible change without going over', function(){
-        assert.deepStrictEqual([1, 1], makeChange(3.31, 5.00, [100, 50]));
-        assert.deepStrictEqual([1, 1, 1], makeChange(3.31, 5.00, [100, 50, 10]));
-        assert.deepStrictEqual([1, 1, 1, 1], makeChange(3.31, 5.00, [100, 50, 10, 5]));
-        assert.deepStrictEqual([1, 1, 1, 1, 1], makeChange(3.31, 5.00, [100, 50, 10, 5, 3]));
-        assert.deepStrictEqual([1, 1, 1, 1, 4], makeChange(3.31, 5.00, [100, 50, 10, 5, 1]));
+        expect(makeChange(3.31, 5.00, [100, 50])).to.deep.equal([1, 1]);
+        expect(makeChange(3.31, 5.00, [100, 50, 10])).to.deep.equal([1, 1, 1]);
+        expect(makeChange(3.31, 5.00, [100, 50, 10, 5])).to.deep.equal([1, 1, 1, 1]);
+        expect(makeChange(3.31, 5.00, [100, 50, 10, 5, 3])).to.deep.equal([1, 1, 1, 1, 1]);
+        expect(makeChange(3.31, 5.00, [100, 50, 10, 5, 1])).to.deep.equal([1, 1, 1, 1, 4]);
       });
     });
   });
